@@ -84,14 +84,60 @@ app.get('/api/user/:userId/vehiclecount', function(req, res, next){
 
 //6
 app.get('/api/user/:userId/vehicle', function(req, res, next){
-	
+	db.get_user_vehicles([Number(req.params.userId)], function(err, result){
+		if (err){
+			res.status(500).send(err);
+		} else {
+			res.send(result);
+		}
+	})
 })
 
+//7, 8
+app.get('/api/vehicle', function(req, res, next){
+	if (req.query.UserEmail){
+		db.get_user_vehicles_by_email([req.query.UserEmail], function(err, result){
+			if (err){
+				res.status(500).send(err);
+			} else {
+				res.send(result);
+			}
+		})
+	}
+	if (req.query.userFirstStart){
+		db.get_user_vehicles_by_firstname_starts([req.query.userFirstStart], function(err, result){
+			if (err){
+				res.status(500).send(err);
+			} else {
+				res.send(result);
+			}
+	})
+	}
+})
 
+//9
+app.get('/api/newervehiclesbyyear', function(req, res, next){
+	db.get_vehicles_over_2000(function(err, result){
+		if (err){
+			res.status(500).send(err);
+		} else {
+			res.send(result);
+		}
+	})
+})
 
+//10
+app.put('/api/vehicle/:vehicleId/user/:userId', function(req, res, next){
+	db.update_ownership([req.params.vehicleId, req.params.userId], function(err, result){
+		if (err){
+			res.status(500).send(err);
+		} else {
+			res.send(result);
+		}
+	})
+})
 
-
-
+//11
 
 
 
