@@ -139,7 +139,7 @@ app.put('/api/vehicle/:vehicleId/user/:userId', function(req, res, next){
 
 //11
 app.delete('/api/user/:userId/vehicle/:vehicleId', function(req, res, next){
-	db.remove_ownership([req.params.vehicleId, req.params.userId], function(err, result){
+	db.remove_ownership([Number(req.params.vehicleId), Number(req.params.userId)], function(err, result){
 		if (err){
 			res.status(500).send(err);
 		} else {
