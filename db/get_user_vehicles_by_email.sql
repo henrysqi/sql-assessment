@@ -1,7 +1,4 @@
-SELECT *
+SELECT *, Users.email
 FROM Vehicles
-WHERE Vehicles.ownerId in (
-  SELECT Users.id 
-  FROM Users
-  WHERE Users.email = $1
-)
+JOIN Users on Vehicles.ownerId = Users.id
+WHERE Users.email = $1
